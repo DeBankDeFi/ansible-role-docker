@@ -65,11 +65,9 @@
 
     - name: Ensure docker config dir at present
       file:
-        path: "{{ item }}"
+        path: "/root/.docker"
         state: directory
         mode: 0700
-        with_items:
-          - "/root/.docker"
 
     - name: Ensure Docker config at present
       copy:
