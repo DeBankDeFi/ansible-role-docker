@@ -54,3 +54,26 @@
     repo: "{{ docker_apt_repository }}"
     state: present
     update_cache: true
+
+- name: Configure Amazon ECR Docker Credential Helper
+  block:
+    - name: Update ECR Docker Credential Helper
+      apt:
+        name:
+          - amazon-ecr-credential-helper
+        state: present
+
+    - name: Ensure docker config dir at present
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: 0700
+        with_items:
+          - "/root/.docker"
+
+    - name: Ensure Docker config at present
+      copy:
+        src: "{{ item.from }}"
+        dest: "{{ item.to }}"
+      with_items:
+        - {from: "docker/config.json", to: "/root/.docker/config.json"}
