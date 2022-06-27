@@ -15,7 +15,7 @@
 
 - name: Install Docker Compose (if configured).
   shell: |
-    wget -q -o {{ docker_compose_path }} {{ docker_compose_url }}
+    wget -q {{ docker_compose_url }} -O {{ docker_compose_path }}
     chmod +x {{ docker_compose_path }}
   args:
     chdir: /tmp
