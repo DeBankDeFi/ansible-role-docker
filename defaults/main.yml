@@ -39,7 +39,7 @@ docker_yum_gpg_key: "{{ docker_repo_url }}/centos/gpg"
 docker_users: []
 
 # Docker daemon options as a dict
-docker_daemon_options: {}
+docker_daemon_options: {"log-driver":"json-file","log-opts":{"max-size":"500m","max-file":"3"}}
 
 # proxy env, if defined, env vars https_proxy and http_proxy will be injected.
 proxy_env:

@@ -1,10 +1,16 @@
 ---
-- include_tasks: setup-RedHat.yml
-  when: ansible_os_family == 'RedHat'
+- name: Include OS-specific tasks
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "setup-{{ ansible_distribution }}.yml"
+    - "setup-{{ ansible_os_family }}.yml"
 
-- include_tasks: setup-Debian.yml
-  when: ansible_os_family == 'Debian'
-
+#- include_tasks: setup-RedHat.yml
+#  when: ansible_os_family == 'RedHat'
+#
+#- include_tasks: setup-Debian.yml
+#  when: ansible_os_family == 'Debian'
+#
 - name: Install Docker.
   package:
     name: "{{ docker_package }}"
